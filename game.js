@@ -1,6 +1,6 @@
 
-const TIME_LIMIT = 20;
-const DEFAULT_SCORE = 50;
+const TIME_LIMIT = 30;
+const DEFAULT_SCORE = 5;
 
 let current = 0;
 let total = 0;
