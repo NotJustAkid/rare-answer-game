@@ -61,3 +61,30 @@ h1 {
   font-size: 13px;
   color: #9ca3af;
 }
+
+.status {
+  display: flex;
+  justify-content: space-between;
+  color: #6b7280;
+}
+
+input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 12px;
+  margin: 16px 0;
+  font-size: 18px;
+  border: 2px solid #c7d2fe;
+  border-radius: 10px;
+}
+
+button.button {
+  border: none;
+  cursor: pointer;
+}
+
+.feedback {
+  min-height: 24px;
+  font-weight: bold;
+  color: #3730a3;
+}
