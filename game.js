@@ -1,32 +1,3 @@
-const prompts = [
-  {
-    question: "한국 과자 이름을 말해 보세요",
-    answers: [
-      { name: "새우깡", score: 10 },
-      { name: "포카칩", score: 20 },
-      { name: "꼬북칩", score: 40 },
-      { name: "치토스", score: 25 }
-    ]
-  },
-  {
-    question: "과일 이름을 말해 보세요",
-    answers: [
-      { name: "사과", score: 5 },
-      { name: "바나나", score: 10 },
-      { name: "두리안", score: 70 },
-      { name: "리치", score: 85 }
-    ]
-  },
-  {
-    question: "악기 이름을 말해 보세요",
-    answers: [
-      { name: "피아노", score: 5 },
-      { name: "기타", score: 10 },
-      { name: "가야금", score: 60 },
-      { name: "오카리나", score: 85 }
-    ]
-  }
-];
 
 const TIME_LIMIT = 20;
 const DEFAULT_SCORE = 50;
