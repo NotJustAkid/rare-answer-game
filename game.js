@@ -1,6 +1,7 @@
-
 const TIME_LIMIT = 30;
 const DEFAULT_SCORE = 5;
+const ROUNDS = 5;
+const rounds = prompts.slice().sort(() => Math.random() - 0.5).slice(0, ROUNDS);
 
 let current = 0;
 let total = 0;
@@ -107,9 +108,9 @@ function scoreAnswer(input, answers) {
 }
 
 function showPrompt() {
-  const p = prompts[current];
+  const p = rounds[current];
   answering = true;
-  roundEl.textContent = (current + 1) + " / " + prompts.length;
+  roundEl.textContent = (current + 1) + " / " + rounds.length;
   questionEl.textContent = p.question;
   answerEl.value = "";
   answerEl.disabled = false;
@@ -133,10 +134,10 @@ function submitAnswer() {
   clearInterval(timerId);
   answering = false;
   answerEl.disabled = true;
-  const result = scoreAnswer(answerEl.value, prompts[current].answers);
+  const result = scoreAnswer(answerEl.value, rounds[current].answers);
   total = total + result.score;
   feedbackEl.textContent = result.label + " · " + result.score + "점";
-  if (current === prompts.length - 1) {
+ if (current === rounds.length - 1) {
     submitBtn.textContent = "결과 보기";
   } else {
     submitBtn.textContent = "다음";
@@ -145,7 +146,7 @@ function submitAnswer() {
 
 function nextStep() {
   current = current + 1;
-  if (current >= prompts.length) {
+  if (current >= rounds.length) {
     gameBox.hidden = true;
     finalBox.hidden = false;
     finalScoreEl.textContent = total + "점";
