@@ -29,16 +29,80 @@ function tierName(score) {
   return "흔함";
 }
 
+// Levenshtein distance 
+function distance(a, b) {
+  let previous = [];
+  for (let j = 0; j <= b.length; j++) {
+    previous[j] = j;
+  }
+  for (let i = 1; i <= a.length; i++) {
+    const row = [i];
+    for (let j = 1; j <= b.length; j++) {
+      const cost = a[i - 1] === b[j - 1] ? 0 : 1;
+      row[j] = Math.min(
+        previous[j] + 1,
+        row[j - 1] + 1,
+        previous[j - 1] + cost
+      );
+    }
+    previous = row;
+  }
+  return previous[b.length];
+}
+
+function toLetters(text) {
+  return text.replace(/\s+/g, "").toLowerCase().normalize("NFD");
+}
+
+function allowedEdits(letters) {
+  if (letters.length <= 5) return 0;
+  if (letters.length <= 9) return 1;
+  return 2;
+}
+
 function scoreAnswer(input, answers) {
   const typed = clean(input);
   if (typed === "") {
     return { score: 0, label: "답이 없습니다" };
   }
+
   for (const a of answers) {
-    if (clean(a.name) === typed) {
-      return { score: a.score, label: tierName(a.score) };
+    const names = [a.name].concat(a.aliases || []);
+    for (const n of names) {
+      if (clean(n) === typed) {
+        return { score: a.score, label: tierName(a.score) };
+      }
     }
   }
+
+  const typedLetters = toLetters(input);
+  let best = null;
+  let bestDistance = 999;
+  let tie = false;
+  for (const a of answers) {
+    const names = [a.name].concat(a.aliases || []);
+    for (const n of names) {
+      const target = toLetters(n);
+      const d = distance(typedLetters, target);
+      if (d <= allowedEdits(target)) {
+        if (d < bestDistance) {
+          best = a;
+          bestDistance = d;
+          tie = false;
+        } else if (d === bestDistance && a !== best) {
+          tie = true;
+        }
+      }
+    }
+  }
+
+  if (best && !tie) {
+    return {
+      score: best.score,
+      label: tierName(best.score) + " (" + best.name + "(으)로 인식)"
+    };
+  }
+
   return { score: DEFAULT_SCORE, label: "목록에 없는 답 (기본 점수)" };
 }
 
