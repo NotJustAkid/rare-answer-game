@@ -88,3 +88,44 @@ button.button {
   font-weight: bold;
   color: #3730a3;
 }
+.big-score {
+  margin: 8px 0 0;
+  font-size: 48px;
+  font-weight: bold;
+  color: #4f46e5;
+}
+
+.tier {
+  margin: 0;
+  font-size: 22px;
+  font-weight: bold;
+  color: #3730a3;
+}
+
+.answer-list {
+  list-style: none;
+  padding: 0;
+  margin: 24px 0;
+  text-align: left;
+}
+
+.answer-list li {
+  padding: 12px 14px;
+  margin-bottom: 8px;
+  background: #eef2ff;
+  border-radius: 10px;
+}
+
+.answer-list .q {
+  font-size: 13px;
+  color: #6b7280;
+}
+
+.answer-list .a {
+  font-weight: bold;
+}
+
+.answer-list .l {
+  font-size: 13px;
+  color: #3730a3;
+}
