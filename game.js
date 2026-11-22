@@ -8,6 +8,7 @@ let total = 0;
 let timeLeft = TIME_LIMIT;
 let timerId = null;
 let answering = true;
+let results = [];
 
 const roundEl = document.getElementById("round");
 const timerEl = document.getElementById("timer");
