@@ -136,6 +136,12 @@ function submitAnswer() {
   answering = false;
   answerEl.disabled = true;
   const result = scoreAnswer(answerEl.value, rounds[current].answers);
+  results.push({
+    question: rounds[current].question,
+    answer: answerEl.value.trim(),
+    score: result.score,
+    label: result.label
+  });
   total = total + result.score;
   feedbackEl.textContent = result.label + " · " + result.score + "점";
  if (current === rounds.length - 1) {
@@ -146,11 +152,10 @@ function submitAnswer() {
 }
 
 function nextStep() {
-  current = current + 1;
+ current = current + 1;
   if (current >= rounds.length) {
-    gameBox.hidden = true;
-    finalBox.hidden = false;
-    finalScoreEl.textContent = total + "점";
+    sessionStorage.setItem("rareResults", JSON.stringify({ total: total, results: results }));
+    window.location.href = "result.html";
   } else {
     showPrompt();
   }
